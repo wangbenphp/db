@@ -1,6 +1,8 @@
 <?php
 
-require 'DB.php';
+namespace wangben\db\service;
+
+use wangben\db\service\DB;
 
 class Query
 {

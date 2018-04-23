@@ -1,6 +1,8 @@
 <?php
 
-require 'Query.php';
+namespace wangben\db\service;
+
+use wangben\db\service\Query;
 
 class Connection
 {
