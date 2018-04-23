@@ -1,0 +1,22 @@
+{
+    "name": "wangben/db",
+    "description": "db",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "wangben",
+            "email": "benwang@hk01.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0"
+    },
+    "autoload": {
+    "psr-4": {
+      "wangben\\db\\service\\": "src/service",
+      "wangben\\db\\library\\": "src/library"
+    }
+  }
+}
