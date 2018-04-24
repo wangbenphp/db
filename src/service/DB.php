@@ -2,8 +2,6 @@
 
 namespace wangben\db\service;
 
-use wangben\db\service\Mysql;
-
 class DB
 {
 	protected static $instance = [];
@@ -16,7 +14,7 @@ class DB
 			
 			$config = self::databaseConfig($config);
 
-			self::$instance[$config_id] = Mysql($config);
+			self::$instance[$config_id] = new Query($config);
 
 		}
 
@@ -29,7 +27,7 @@ class DB
 	private static function databaseConfig($config = [])
 	{
 		if (empty($config)) {
-			$config = require dirname(__DIR__) . '/library/Config.php';
+			$config = require_once dirname(__DIR__) . '/library/Config.php';
 		}
 		
 		return $config;
