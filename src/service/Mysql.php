@@ -48,12 +48,12 @@ class Mysql
      */
     public static function databaseConfig($config = [])
     {
-        $config['hostname'] = $config['hostname'] ?: '';
-        $config['database'] = $config['database'] ?: '';
-        $config['username'] = $config['username'] ?: '';
-        $config['password'] = $config['password'] ?: '';
-        $config['hostport'] = $config['hostport'] ?: 3306;
-        $config['charset']  = $config['charset'] ?: 'utf8';
+        $config['hostname'] = isset($config['hostname']) ? ($config['hostname'] ?: '') : '';
+        $config['database'] = isset($config['database']) ? ($config['database'] ?: '') : '';
+        $config['username'] = isset($config['username']) ? ($config['username'] ?: '') : '';
+        $config['password'] = isset($config['password']) ? ($config['password'] ?: '') : '';
+        $config['hostport'] = isset($config['hostport']) ? ($config['hostport'] ?: 3306) : 3306;
+        $config['charset']  = isset($config['charset']) ? ($config['charset'] ?: 'utf8') : 'utf8';
 
         return $config;
     }

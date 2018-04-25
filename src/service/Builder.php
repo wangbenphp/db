@@ -82,7 +82,9 @@ class Builder
      */
     private function parseField($field = '')
     {
-        if ($field) {
+        if (!$field || $field == '*') {
+            $fields = '*';
+        } else {
             $arr1   = explode(',', $field);
             $sign   = '';
             $fields = '';
@@ -96,8 +98,6 @@ class Builder
                 }
                 $sign    = ',';
             }
-        } else {
-            $fields = '*';
         }
 
         return $fields;

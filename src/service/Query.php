@@ -5,13 +5,15 @@ namespace wangben\db\service;
 class Query
 {
     //查询参数
-	protected $options = [];
+	protected $options    = [];
 	//PDO连接
-	protected $connect = [];
+	protected $connect    = [];
 	//生成SQL语句
-    protected $builder = [];
+    protected $builder    = [];
 	//Config配置
-	protected $config  = [];
+	protected $config     = [];
+	//数据处理
+    protected $datahandle = [];
 
 	/**
 	 * 连接PDO
@@ -19,9 +21,10 @@ class Query
 	public function __construct($config)
     {
         $mysql   = \wangben\db\service\Mysql::getInstance($config);
-        $this->connect = $mysql::$connect;
-        $this->config  = $config;
-        $this->builder = new Builder();
+        $this->connect    = $mysql::$connect;
+        $this->config     = $config;
+        $this->builder    = new Builder();
+        $this->datahandle = new DataHandle();
     }
 
     /**
