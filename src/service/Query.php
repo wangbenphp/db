@@ -16,15 +16,24 @@ class Query
     protected $datahandle = [];
 
 	/**
-	 * 连接PDO
+	 * 连接PDO、创建MySQL语句、数据处理
 	 */
 	public function __construct($config)
     {
-        $mysql   = \wangben\db\service\Mysql::getInstance($config);
-        $this->connect    = $mysql::$connect;
         $this->config     = $config;
-        $this->builder    = new Builder();
-        $this->datahandle = new DataHandle();
+
+        if (empty($this->connect)) {
+            $mysql   = \wangben\db\service\Mysql::getInstance($config);
+            $this->connect    = $mysql::$connect;
+        }
+
+        if (empty($this->builder)) {
+            $this->builder    = new Builder();
+        }
+
+        if (empty($this->datahandle)) {
+            $this->datahandle = new DataHandle();
+        }
     }
 
     /**
@@ -120,9 +129,10 @@ class Query
     {
         $this->limit(1);
         $sql    = $this->builder->select($this->options);
-        $res    = $this->query($sql, true);
+        $res    = $this->query($sql);
+        $result = $this->datahandle->select($res, 1);
 
-        return $res;
+        return $result;
     }
 
     /**
@@ -130,8 +140,28 @@ class Query
      */
     public function select()
     {
-        $sql = '';
-        $res = $this->query($sql);
+        $sql    = $this->builder->select($this->options);
+        $res    = $this->query($sql);
+        $result = $this->datahandle->select($res);
+
+        return $result;
+    }
+
+    public function count($field = '*')
+    {
+        if (isset($this->options['group'])) {
+            //
+        }
+
+        return $this->value();
+    }
+
+    /**
+     * 得到某个字段的值
+     */
+    public function value()
+    {
+        //
     }
 
     //
@@ -158,18 +188,9 @@ class Query
     /**
      * PDO的query处理
      */
-    private function query($sql, $sign = false)
+    private function query($sql)
     {
         $res = $this->connect->query($sql);
-        while($row = $res->fetch(\PDO::FETCH_ASSOC)) {
-            $data[] = $row;
-        }
-
-        if ($sign) {
-            $result = $data[0];
-        } else {
-            $result = $data;
-        }
-        return $result;
+        return $res;
     }
 }
